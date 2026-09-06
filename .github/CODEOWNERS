@@ -1,0 +1,11 @@
+# Every file, unless a later rule overrides it
+*               @amara-owner
+
+# Front-end markup and styles
+*.html          @ben-dev @chen-dev
+css/            @chen-dev
+js/             @dara-dev
+
+# Anything that changes how the project is run
+.github/        @amara-owner
+tests/          @eli-test
