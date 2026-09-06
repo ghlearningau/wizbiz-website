@@ -1,11 +1,7 @@
-
 ---
 name: Task
 about: A planned unit of work for the v1.0.0 milestone
-title: ''
-labels: ''
 ---
-
 
 # Objective
 Describe the user or business outcome.
