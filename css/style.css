@@ -1,0 +1,231 @@
+/* ==========================================================================
+   WizBiz - style.css
+   Issue #2: responsive navigation
+
+   Written mobile first. The rules at the top are what a phone gets.
+   The media query near the bottom is what anything 768px or wider gets.
+   ========================================================================== */
+
+:root {
+  --ink:   #1f2933;
+  --muted: #64748b;
+  --line:  #cbd5e1;
+  --brand: #2563eb;
+  --paper: #ffffff;
+  --wash:  #f1f5f9;
+  --radius: 10px;
+  --nav-breakpoint: 768px;   /* the number from the acceptance criteria */
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font: 16px/1.6 "Segoe UI", system-ui, -apple-system, sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+/* Visible to a screen reader, invisible on screen.
+   Used for the word "Menu" on the button. */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ==========================================================================
+   HEADER
+   ========================================================================== */
+
+.site-header {
+  display: flex;
+  flex-wrap: wrap;              /* lets the nav drop onto its own line */
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--ink);
+}
+.brand span { color: var(--brand); }
+
+/* ==========================================================================
+   THE TOGGLE
+   The checkbox is hidden the careful way. display:none would also remove it
+   from the keyboard, which would fail the Tab test in step 78.
+   ========================================================================== */
+
+.nav-toggle {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.nav-toggle-label {
+  display: block;
+  padding: 0.6rem;
+  cursor: pointer;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  line-height: 0;
+}
+
+/* The three bars: one real element plus its two pseudo-elements. */
+.nav-bars,
+.nav-bars::before,
+.nav-bars::after {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--ink);
+  border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.nav-bars::before,
+.nav-bars::after {
+  content: "";
+  position: relative;
+}
+.nav-bars::before { top: -7px; }
+.nav-bars::after  { top: 5px; }
+
+/* Focus ring. The checkbox takes focus, so style the label next to it. */
+.nav-toggle:focus-visible + .nav-toggle-label {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+/* Open: the middle bar disappears and the outer two cross into an X. */
+.nav-toggle:checked + .nav-toggle-label .nav-bars {
+  background: transparent;
+}
+.nav-toggle:checked + .nav-toggle-label .nav-bars::before {
+  transform: translateY(7px) rotate(45deg);
+}
+.nav-toggle:checked + .nav-toggle-label .nav-bars::after {
+  transform: translateY(-5px) rotate(-45deg);
+}
+
+/* ==========================================================================
+   THE MENU - phone layout
+   ========================================================================== */
+
+.site-nav {
+  display: none;            /* closed by default on a phone */
+  width: 100%;              /* full width when it does appear */
+  order: 3;                 /* pushes it below the brand and the button */
+}
+
+/* The sibling combinator ~ is why the checkbox has to come first in the HTML. */
+.nav-toggle:checked ~ .site-nav {
+  display: block;
+}
+
+.site-nav ul {
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0;
+}
+
+.site-nav li { border-top: 1px solid var(--line); }
+
+.site-nav a {
+  display: block;           /* the whole row is tappable, not just the word */
+  padding: 0.8rem 0.25rem;
+  text-decoration: none;
+  color: var(--muted);
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible { color: var(--ink); }
+
+.site-nav a.active {
+  color: var(--brand);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   THE MENU - 768px and wider
+   The button disappears, the links become a row, and the menu is always open.
+   ========================================================================== */
+
+@media (min-width: 768px) {
+
+  .nav-toggle-label { display: none; }
+
+  .site-nav {
+    display: block;         /* always visible, checkbox or not */
+    width: auto;
+    order: 0;
+  }
+
+  .site-nav ul {
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+  }
+
+  .site-nav li { border-top: 0; }
+
+  .site-nav a {
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+  }
+
+  .site-nav a.active { border-bottom-color: var(--brand); }
+}
+
+/* ==========================================================================
+   PAGE CONTENT
+   ========================================================================== */
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 4rem;
+}
+
+h1 { font-size: 2rem; line-height: 1.2; margin: 0 0 0.5rem; }
+p  { max-width: 68ch; }
+
+.lede { font-size: 1.125rem; color: var(--muted); }
+
+.hero { padding: 1.5rem 0 2rem; }
+
+.btn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: var(--radius);
+  background: var(--brand);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+.btn:hover { background: #1d4ed8; }
+
+.site-footer {
+  padding: 1.5rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.875rem;
+  text-align: center;
+}
+.site-footer p { max-width: none; margin: 0; }
+

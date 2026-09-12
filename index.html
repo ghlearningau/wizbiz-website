@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Home | WizBiz</title>
+  <meta name="description" content="WizBiz - practical websites that ship on a schedule.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!--
+    THE NAVIGATION
+    Three parts, and the order matters because the CSS relies on it:
+      1. the checkbox   - remembers open or closed. Never seen, but focusable.
+      2. the label      - the three-line button you actually tap.
+      3. the <nav>      - the list of links.
+    The checkbox must come BEFORE the nav, because CSS can only style an
+    element that comes after the one it is reacting to.
+  -->
+  <header class="site-header">
+
+    <a class="brand" href="index.html">Wiz<span>Biz</span></a>
+
+    <!-- 1. Remembers whether the menu is open. Hidden from view, not from the keyboard. -->
+    <input type="checkbox" id="nav-toggle" class="nav-toggle">
+
+    <!-- 2. The button. Clicking a label ticks the checkbox it points at. -->
+    <label for="nav-toggle" class="nav-toggle-label">
+      <span class="nav-bars"></span>
+      <span class="sr-only">Menu</span>
+    </label>
+
+    <!-- 3. The links. -->
+    <nav class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Small business, serious tooling.</h1>
+      <p class="lede">WizBiz builds practical websites that ship on a schedule.</p>
+      <a class="btn" href="services.html">See what we do</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 WizBiz. Built as a course project.</p>
+  </footer>
+
+</body>
+<!---- updated -->
+</html>
+
